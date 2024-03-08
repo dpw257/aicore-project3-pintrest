@@ -13,7 +13,7 @@ An AWS account with suitable rights is required for this project. Once the AWS s
 * In Databricks, access and clean the data using dataframes_to_delta_tables.ipynb
 
 # Usage instructions
-* Part 1: Scraped data *
+## Part 1: Scraped data
 
 On the AWS platform, navigate to the EC2 console. An EC2 instant should have already been created. Locate the key pair, copy the name of the key pair and copy the entire Value field. Save the Value field in a key pair file locally, ending in .pem. Name the file the same as the key pair.
 
@@ -33,17 +33,17 @@ echo $CLASSPATH
 On AWS, navigate to the IAM console and copy the ARN under Roles. Add this ARN under Trust relationships.
 On CLI, navigate to the folder bin and add the following to the file client.properties using nano.
 '''
-# Sets up TLS for encryption and SASL for authN.
+ Sets up TLS for encryption and SASL for authN.
 security.protocol = SASL_SSL
 
-# Identifies the SASL mechanism to use.
+ Identifies the SASL mechanism to use.
 sasl.mechanism = AWS_MSK_IAM
 
-# Binds SASL client implementation.
+ Binds SASL client implementation.
 sasl.jaas.config = software.amazon.msk.auth.iam.IAMLoginModule required awsRoleArn=arn:aws:iam::584739742957:role/129076a9eaf9-ec2-access-role;
 
-# Encapsulates constructing a SigV4 signature based on extracted credentials.
-# The SASL client bound by "sasl.jaas.config" invokes this class.
+ Encapsulates constructing a SigV4 signature based on extracted credentials.
+ The SASL client bound by "sasl.jaas.config" invokes this class.
 sasl.client.callback.handler.class = software.amazon.msk.auth.iam.IAMClientCallbackHandler
 '''
 
@@ -58,7 +58,7 @@ In Databricks, run the notebook s3_bucket_to_databricks.ipynb to access, clean a
 
 
 
-* Part 2: Streamed data*
+## Part 2: Streamed data
 If yours AWS account has not been provided with access to a MWAA environment Databricks-Airflow-env and its S3 bucket, you must create an API token in Databricks to connect to your AWS account, set up the MWAA-Databricks connection and create a requirements.txt file.
 
 Create a DAG file and upload it to the dags folder in your S3 bucket for MWAA. Then manually trigger the DAG and check it runs successfully.
